@@ -1,0 +1,47 @@
+name: Check new chapters
+
+on:
+  schedule:
+    - cron: '17 * * * *' # every hour (UTC); GitHub may start it a few minutes late
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [series.json] # a newly added series gets fetched right away
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-chapters
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch latest chapters
+        run: node scripts/check.mjs
+
+      - name: Commit data.json if it changed
+        run: |
+          git config user.name "manga-tracker-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Update chapters $(date -u +'%Y-%m-%d %H:%M')"
+          # The web app may have committed progress.json meanwhile; rebase and retry.
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

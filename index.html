@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Manga Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e2564a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z'/><path d='M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg>
+      <span>Manga Tracker</span>
+    </div>
+    <div class="topbar-right">
+      <span id="last-check" class="muted small"></span>
+      <button id="btn-refresh" class="icon-btn" title="โหลดข้อมูลใหม่" aria-label="โหลดข้อมูลใหม่">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
+      </button>
+      <button id="btn-theme" class="icon-btn" title="สลับธีม" aria-label="สลับธีม">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+      </button>
+      <button id="btn-settings" class="icon-btn" title="ตั้งค่า" aria-label="ตั้งค่า">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 4.3c.4-1.8 3-1.8 3.4 0a1.7 1.7 0 0 0 2.6 1.1c1.5-.9 3.3.8 2.4 2.4a1.7 1.7 0 0 0 1 2.5c1.9.5 1.9 3.1 0 3.5a1.7 1.7 0 0 0-1 2.6c.9 1.5-.9 3.3-2.4 2.4a1.7 1.7 0 0 0-2.6 1c-.4 1.9-3 1.9-3.4 0a1.7 1.7 0 0 0-2.6-1c-1.5.9-3.3-.9-2.4-2.4a1.7 1.7 0 0 0-1-2.6c-1.9-.4-1.9-3 0-3.5a1.7 1.7 0 0 0 1-2.5c-.9-1.6.9-3.3 2.4-2.4a1.7 1.7 0 0 0 2.6-1.1z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="banner" class="banner" hidden></div>
+
+    <form id="add-form" class="add-row">
+      <input id="add-url" type="url" inputmode="url" autocomplete="off" required
+             placeholder="วางลิงก์การ์ตูน manga-zaa (ตอนไหนก็ได้ หรือหน้าเรื่อง)">
+      <button type="submit" class="btn primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        เพิ่มเรื่อง
+      </button>
+    </form>
+    <p id="add-error" class="field-error" hidden></p>
+
+    <section class="stats">
+      <div class="stat"><span class="stat-label">ติดตามอยู่</span><span id="stat-total" class="stat-value">–</span></div>
+      <div class="stat"><span class="stat-label">มีตอนใหม่</span><span id="stat-new" class="stat-value accent">–</span></div>
+      <div class="stat"><span class="stat-label">ตอนค้างอ่าน</span><span id="stat-unread" class="stat-value">–</span></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="chips" role="tablist">
+        <button class="chip on" data-filter="all" role="tab">ทั้งหมด</button>
+        <button class="chip" data-filter="new" role="tab">มีตอนใหม่</button>
+        <button class="chip" data-filter="caught" role="tab">อ่านทันแล้ว</button>
+      </div>
+      <div class="toolbar-right">
+        <input id="search" type="search" placeholder="ค้นหาชื่อเรื่อง" aria-label="ค้นหาชื่อเรื่อง">
+        <select id="sort" aria-label="เรียงลำดับ">
+          <option value="updated">อัปเดตล่าสุด</option>
+          <option value="unread">ค้างอ่านเยอะสุด</option>
+          <option value="name">ชื่อ ก–ฮ / A–Z</option>
+          <option value="added">เพิ่มล่าสุด</option>
+        </select>
+      </div>
+    </div>
+
+    <section id="grid" class="grid" aria-live="polite"></section>
+    <div id="empty" class="empty" hidden></div>
+  </main>
+
+  <dialog id="settings">
+    <form method="dialog" id="settings-form">
+      <h2>ตั้งค่าการเชื่อมต่อ GitHub</h2>
+      <p class="muted small">ใช้สำหรับบันทึกเรื่องที่ติดตามและตอนที่อ่านถึงลง repo ของคุณ ข้อมูลนี้เก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น</p>
+      <div class="field-row">
+        <label>Owner <input name="owner" required placeholder="your-github-name"></label>
+        <label>Repo <input name="repo" required placeholder="manga-tracker"></label>
+      </div>
+      <label>Branch <input name="branch" placeholder="main"></label>
+      <label>Personal access token
+        <input name="token" type="password" autocomplete="off" placeholder="github_pat_…">
+      </label>
+      <p class="muted small">สร้าง fine-grained token ที่ใช้ได้เฉพาะ repo นี้ ให้สิทธิ์ <b>Contents: Read and write</b></p>
+      <p id="settings-error" class="field-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="settings-clear">ลบ token</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn" id="settings-cancel">ยกเลิก</button>
+        <button type="submit" class="btn primary" id="settings-save">บันทึก</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="progress-dialog">
+    <form method="dialog" id="progress-form">
+      <h2 id="progress-title">ตั้งตอนที่อ่านถึง</h2>
+      <label>อ่านถึงตอนที่
+        <input name="chapter" type="number" step="any" min="0" required>
+      </label>
+      <p id="progress-error" class="field-error" hidden></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button type="button" class="btn" id="progress-cancel">ยกเลิก</button>
+        <button type="submit" class="btn primary">บันทึก</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="assets/app.js" type="module"></script>
+</body>
+</html>
