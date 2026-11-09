@@ -5835,6 +5835,20 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2023/04/Bichir-van-Baskerville.webp",
    "chapters": [
     {
+     "num": 188,
+     "name": "ตอนที่ 188",
+     "url": "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-188/",
+     "date": "2026-11-09",
+     "firstSeen": "2026-11-09T22:23:19.513Z"
+    },
+    {
+     "num": 187,
+     "name": "ตอนที่ 187",
+     "url": "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-187/",
+     "date": "2026-11-09",
+     "firstSeen": "2026-11-09T22:23:19.513Z"
+    },
+    {
      "num": 186,
      "name": "ตอนที่ 186",
      "url": "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-186/",
@@ -7144,7 +7158,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-10-27T04:00:57.891Z",
+   "lastChange": "2026-11-09T22:23:19.513Z",
    "error": null
   },
   "https://manga-zaa.net/reality-quest-%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b5%e0%b9%88-21/": {
@@ -7152,6 +7166,13 @@
    "title": "Reality Quest",
    "cover": "https://manga-zaa.net/wp-content/uploads/2023/01/Ha-Dowan-Quest-1.webp",
    "chapters": [
+    {
+     "num": 229,
+     "name": "ตอนที่ 229",
+     "url": "https://manga-zaa.net/reality-quest-229/",
+     "date": "2026-11-09",
+     "firstSeen": "2026-11-09T22:23:19.513Z"
+    },
     {
      "num": 228,
      "name": "ตอนที่ 228",
@@ -8819,7 +8840,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-01T22:50:19.474Z",
+   "lastChange": "2026-11-09T22:23:19.513Z",
    "error": null
   },
   "https://manga-zaa.net/solo-farming-in-the-tower-125/": {
