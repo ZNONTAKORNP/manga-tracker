@@ -108,10 +108,19 @@ function utf8ToB64(str) {
   return btoa(bin);
 }
 
+// The raw read and the metadata read hit the same API URL with different Accept
+// headers; some browsers (Safari) hand back the cached raw body for the second one.
+// A per-request query string keeps the two from ever sharing a cache entry.
+const contentsUrl = (path, kind) =>
+  repoPath(`/contents/${path}?ref=${encodeURIComponent(config.branch || 'main')}&_=${kind}${Date.now()}`);
+
 async function getFileWithSha(path) {
   try {
-    const res = await gh(repoPath(`/contents/${path}?ref=${encodeURIComponent(config.branch || 'main')}`));
+    const res = await gh(contentsUrl(path, 'meta'));
     const json = await res.json();
+    if (!json.sha || typeof json.content !== 'string') {
+      throw new Error(`อ่าน ${path} จาก GitHub ไม่สำเร็จ ลองกดโหลดข้อมูลใหม่แล้วทำอีกครั้ง`);
+    }
     return { sha: json.sha, value: JSON.parse(b64ToUtf8(json.content)) };
   } catch (err) {
     if (err.status === 404) return { sha: undefined, value: null };
@@ -141,7 +150,7 @@ async function mutateFile(path, fn, message) {
 async function readJsonFile(path) {
   if (repoReady()) {
     try {
-      const res = await gh(repoPath(`/contents/${path}?ref=${encodeURIComponent(config.branch || 'main')}`), { accept: 'application/vnd.github.raw+json' });
+      const res = await gh(contentsUrl(path, 'raw'), { accept: 'application/vnd.github.raw+json' });
       return await res.json();
     } catch (err) {
       if (err.status === 404) return null;
