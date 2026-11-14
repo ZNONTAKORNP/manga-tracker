@@ -1,7 +1,11 @@
 // Reads series.json, fetches every series page, and writes data.json.
 // Runs in GitHub Actions on a schedule; no dependencies beyond Node 20+.
+//
+// Supported: any WordPress site on the "MangaReader" theme (manga-zaa.net,
+// สดใสเมะ.com and many other Thai manga sites). Chapter pages link to the series
+// page via div.allc, and series pages list chapters in #chapterlist.
 import { readFile, writeFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, domainToUnicode } from 'node:url';
 import path from 'node:path';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,13 +65,19 @@ function parseDate(text) {
   return `${year}-${String(month + 1).padStart(2, '0')}-${m[2].padStart(2, '0')}`;
 }
 
-const isSeriesUrl = (url) => /\/manga\/[^/]+\/?$/.test(new URL(url).pathname);
+// MangaReader sites put series pages under one of these folders.
+const SERIES_DIRS = 'manga|series|komik|comics|webtoon|manhwa';
+const isSeriesUrl = (url) => new RegExp(`/(${SERIES_DIRS})/[^/]+/?$`).test(new URL(url).pathname);
+
+// "manga-zaa.net", "สดใสเมะ.com"
+const siteName = (url) => domainToUnicode(new URL(url).hostname).replace(/^www\./, '');
 
 // Chapter pages link back to their series via "All chapters are in ..." (div.allc) or the breadcrumb.
 function findSeriesUrl(html) {
-  const m = html.match(/class="allc"[^>]*>[\s\S]*?href="([^"]+\/manga\/[^"]+)"/)
-    || html.match(/itemprop="item"\s+href="([^"]+\/manga\/[^"]+)"/);
-  return m ? m[1] : null;
+  const allc = html.match(/class="allc"[^>]*>[\s\S]*?href="([^"]+)"/);
+  if (allc) return allc[1];
+  const crumbs = [...html.matchAll(/itemprop="item"\s+href="([^"]+)"/g)].map((m) => m[1]);
+  return crumbs.find((u) => isSeriesUrl(u)) || null;
 }
 
 function parseSeries(html) {
@@ -76,7 +86,7 @@ function parseSeries(html) {
     || (html.match(/class="thumb"[\s\S]*?<img[^>]+src="([^"]+)"/) || [])[1];
 
   const listStart = html.indexOf('id="chapterlist"');
-  if (listStart < 0) throw new Error('ไม่พบรายการตอนในหน้าเรื่อง');
+  if (listStart < 0) throw new Error('เว็บนี้ยังไม่รองรับ (ไม่พบรายการตอนแบบธีม MangaReader)');
   const listHtml = html.slice(listStart);
 
   const chapters = [];
@@ -115,7 +125,7 @@ async function checkOne(inputUrl, prev, now) {
     } else {
       const { html } = await fetchHtml(inputUrl);
       seriesUrl = findSeriesUrl(html);
-      if (!seriesUrl) throw new Error('หาหน้ารวมของเรื่องจากลิงก์นี้ไม่เจอ');
+      if (!seriesUrl) throw new Error('หาหน้ารวมของเรื่องจากลิงก์นี้ไม่เจอ (เว็บนี้อาจยังไม่รองรับ)');
       await sleep(DELAY_MS);
     }
   }
@@ -135,6 +145,7 @@ async function checkOne(inputUrl, prev, now) {
   const newCount = isFirstCheck ? 0 : chapters.filter((c) => !prevSeen.has(c.num)).length;
   return {
     seriesUrl,
+    site: siteName(seriesUrl),
     title: parsed.title || prev?.title || seriesUrl,
     cover: parsed.cover || prev?.cover || null,
     chapters,

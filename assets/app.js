@@ -4,7 +4,6 @@
 
 const WORKFLOW_FILE = 'check.yml';
 const AUTO_RELOAD_MS = 5 * 60 * 1000;
-const ALLOWED_HOST = /(^|\.)manga-za+\.(net|com)$/i;
 
 const $ = (sel) => document.querySelector(sel);
 const els = {
@@ -191,6 +190,7 @@ function derive(item) {
     ...item,
     d, chapters, latest, read, unread, next, status,
     title: d?.title || urlKey(item.url).replace(/^https?:\/\/[^/]+\//, ''),
+    site: d?.site || new URL(item.url).hostname.replace(/^www\./, ''),
     updated: latest?.firstSeen || latest?.date || d?.lastChange || item.addedAt,
   };
 }
@@ -308,6 +308,7 @@ function cardHtml(x) {
       </button>
       ${menu}
       <div class="card-body">
+        <div class="site">${esc(x.site)}</div>
         <a class="title" href="${esc(seriesLink)}" target="_blank" rel="noopener" title="${esc(x.title)}">${esc(x.title)}</a>
         ${meta}
         <div class="card-actions">${actions}</div>
@@ -338,7 +339,7 @@ function render() {
 
   let list = state.filter === 'new' ? withNew : state.filter === 'caught' ? caught : all;
   const q = state.query.trim().toLowerCase();
-  if (q) list = list.filter((x) => x.title.toLowerCase().includes(q));
+  if (q) list = list.filter((x) => `${x.title} ${x.site}`.toLowerCase().includes(q));
 
   const byUpdated = (a, b) => toSortable(b.updated) - toSortable(a.updated);
   const sorters = {
@@ -404,7 +405,7 @@ async function addSeries(raw) {
   } catch {
     return showAddError('ลิงก์ไม่ถูกต้อง ลองคัดลอกจากแถบที่อยู่ของเบราว์เซอร์อีกครั้ง');
   }
-  if (!ALLOWED_HOST.test(url.hostname)) return showAddError('ตอนนี้รองรับเฉพาะลิงก์จาก manga-zaa.net');
+  if (!/^https?:$/.test(url.protocol)) return showAddError('ลิงก์ต้องขึ้นต้นด้วย http:// หรือ https://');
   url.hash = '';
   url.search = '';
   if (!url.pathname.endsWith('/')) url.pathname += '/';
