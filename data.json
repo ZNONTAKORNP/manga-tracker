@@ -15643,6 +15643,10 @@
   "https://www.xn--l3c0azab5a2gta.com/absolute-regression-127/": {
    "error": "HTTP 403",
    "errorAt": "2026-11-15T14:31:13.306Z"
+  },
+  "https://mangablackcat.com/manga/myst-might-mayhem/124.0/": {
+   "error": "หาหน้ารวมของเรื่องจากลิงก์นี้ไม่เจอ (เว็บนี้อาจยังไม่รองรับ)",
+   "errorAt": "2026-11-17T07:41:20.021Z"
   }
  }
 }
