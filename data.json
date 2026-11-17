@@ -136,6 +136,13 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2026/07/30-Years-Have-Passed-Since-the-Prologue.png",
    "chapters": [
     {
+     "num": 25,
+     "name": "ตอนที่ 25",
+     "url": "https://manga-zaa.net/30-years-have-passed-since-the-prologue-%e0%b8%81%e0%b8%b9%e0%b9%89%e0%b9%82%e0%b8%a5%e0%b8%81%e0%b8%a1%e0%b8%b2-30-%e0%b8%9b%e0%b8%b5-%e0%b9%80%e0%b8%9e%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b8%a7%e0%b9%88%e0%b8%b2%e0%b9%80%e0%b8%9b%e0%b9%87%e0%b8%99%e0%b9%81%e0%b8%99%e0%b8%a7%e0%b8%ad%e0%b8%b0%e0%b8%84%e0%b8%b2%e0%b9%80%e0%b8%94%e0%b8%a1%e0%b8%b5-25/",
+     "date": "2026-11-17",
+     "firstSeen": "2026-11-17T04:29:09.080Z"
+    },
+    {
      "num": 24,
      "name": "ตอนที่ 24",
      "url": "https://manga-zaa.net/30-years-have-passed-since-the-prologue-%e0%b8%81%e0%b8%b9%e0%b9%89%e0%b9%82%e0%b8%a5%e0%b8%81%e0%b8%a1%e0%b8%b2-30-%e0%b8%9b%e0%b8%b5-%e0%b9%80%e0%b8%9e%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b8%a7%e0%b9%88%e0%b8%b2%e0%b9%80%e0%b8%9b%e0%b9%87%e0%b8%99%e0%b9%81%e0%b8%99%e0%b8%a7%e0%b8%ad%e0%b8%b0%e0%b8%84%e0%b8%b2%e0%b9%80%e0%b8%94%e0%b8%a1%e0%b8%b5-24/",
@@ -304,7 +311,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-09T11:33:55.060Z",
+   "lastChange": "2026-11-17T04:29:09.080Z",
    "error": null
   },
   "https://manga-zaa.net/ranker-who-lives-a-second-time-%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b5%e0%b9%88-1/": {
