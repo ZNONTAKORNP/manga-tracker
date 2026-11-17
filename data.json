@@ -7210,6 +7210,13 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2023/01/Ha-Dowan-Quest-1.webp",
    "chapters": [
     {
+     "num": 230,
+     "name": "ตอนที่ 230",
+     "url": "https://manga-zaa.net/reality-quest-230/",
+     "date": "2026-11-17",
+     "firstSeen": "2026-11-17T14:26:10.083Z"
+    },
+    {
      "num": 229,
      "name": "ตอนที่ 229",
      "url": "https://manga-zaa.net/reality-quest-229/",
@@ -8883,7 +8890,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-09T22:23:19.513Z",
+   "lastChange": "2026-11-17T14:26:10.083Z",
    "error": null
   },
   "https://manga-zaa.net/solo-farming-in-the-tower-125/": {
