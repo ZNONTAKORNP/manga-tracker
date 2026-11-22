@@ -3015,6 +3015,20 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2025/01/1160.webp",
    "chapters": [
     {
+     "num": 112,
+     "name": "ตอนที่ 112",
+     "url": "https://manga-zaa.net/the-legendary-hero-is-an-academy-honors-student-112/",
+     "date": "2026-11-23",
+     "firstSeen": "2026-11-22T21:46:55.526Z"
+    },
+    {
+     "num": 111,
+     "name": "ตอนที่ 111",
+     "url": "https://manga-zaa.net/the-legendary-hero-is-an-academy-honors-student-111/",
+     "date": "2026-11-23",
+     "firstSeen": "2026-11-22T21:46:55.526Z"
+    },
+    {
      "num": 110,
      "name": "ตอนที่ 110",
      "url": "https://manga-zaa.net/the-legendary-hero-is-an-academy-honors-student-110/",
@@ -3785,7 +3799,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-08T22:54:21.417Z",
+   "lastChange": "2026-11-22T21:46:55.526Z",
    "error": null
   },
   "https://manga-zaa.net/the-tutorial-is-too-hard-%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b5%e0%b9%88-23/": {
@@ -5884,6 +5898,13 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2023/04/Bichir-van-Baskerville.webp",
    "chapters": [
     {
+     "num": 190,
+     "name": "ตอนที่ 190",
+     "url": "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-190/",
+     "date": "2026-11-23",
+     "firstSeen": "2026-11-22T21:46:55.526Z"
+    },
+    {
      "num": 189,
      "name": "ตอนที่ 189",
      "url": "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-189/",
@@ -7214,7 +7235,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-15T17:42:54.850Z",
+   "lastChange": "2026-11-22T21:46:55.526Z",
    "error": null
   },
   "https://manga-zaa.net/reality-quest-%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b5%e0%b9%88-21/": {
