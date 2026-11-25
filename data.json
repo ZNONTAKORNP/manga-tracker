@@ -3816,6 +3816,13 @@
    "cover": "https://manga-zaa.net/wp-content/uploads/2023/02/Lee-Ho-Jae-Tutorial.webp",
    "chapters": [
     {
+     "num": 298,
+     "name": "ตอนที่ 298",
+     "url": "https://manga-zaa.net/the-tutorial-is-too-hard-298/",
+     "date": "2026-11-26",
+     "firstSeen": "2026-11-25T23:37:57.838Z"
+    },
+    {
      "num": 297,
      "name": "ตอนที่ 297",
      "url": "https://manga-zaa.net/the-tutorial-is-too-hard-297/",
@@ -5895,7 +5902,7 @@
      "firstSeen": null
     }
    ],
-   "lastChange": "2026-11-19T21:36:17.660Z",
+   "lastChange": "2026-11-25T23:37:57.838Z",
    "error": null
   },
   "https://manga-zaa.net/revenge-of-the-iron-blooded-sword-hound-174/": {
